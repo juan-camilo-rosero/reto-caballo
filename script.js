@@ -148,8 +148,10 @@ $btn = document.querySelector(".start")
 
 $btn.addEventListener("click", e => {
     n = parseInt($n.value)
+    total = (n*n)-1
     casillas_Vacias = parseInt($casillas_Vacias.value)
     posicion = [parseInt($pos_Y.value), parseInt($pos_X.value)]
+    camino = [posicion]
     crear_Tablero(n)
     descansar()
 })
