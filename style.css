@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.fila{
+    display: flex;
+}
+
+.cuadro{
+    width: 4rem;
+    height: 4rem;
+    background-color: whitesmoke;
+    border: .1rem solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
