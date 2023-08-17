@@ -10,19 +10,22 @@ posicion = [0,0],
 camino = [posicion],
 tablero = [],
 contador = 0,
-intervalo = 500
+intervalo = 500,
+casillas_Vacias = 0,
+blanco = true
 
 const contieneArreglo = (arr, arregloPrincipal) => {
-    /*console.log("-----");
-    console.log(arr);
-    console.log(arregloPrincipal);
-    console.log("-----");*/
     return arregloPrincipal.some(subArr => JSON.stringify(subArr) === JSON.stringify(arr)); // Línea hecha con ChatGPT
 }
 
 const crear_Tablero = n => {
     const $tablero = document.querySelector(".tablero")
     for (let i = 0; i < n; i++) {
+        if(n % 2 == 0){
+            (blanco)
+            ? blanco = false
+            : blanco = true
+        }
         const $fila = document.createElement("div")
         $fila.classList.add("fila")
         tablero.push([])
@@ -33,6 +36,14 @@ const crear_Tablero = n => {
             //$texto.textContent = i + ", " + j
             $texto.textContent = "X"
             $cuadro.classList.add("cuadro")
+            if(blanco){
+                $cuadro.classList.add("blanco")
+                blanco = false
+            }
+            else{
+                $cuadro.classList.add("gris")
+                blanco = true
+            }
             $cuadro.setAttribute("data-pos", i + "-" + j)
             $cuadro.appendChild($texto)
             $fila.appendChild($cuadro)
@@ -91,7 +102,7 @@ const probar_Opciones = opciones => {
 
 let camino_Caballo = () => {
     //console.log(pasos_Eliminados);
-    if (paso != total - 1 || contador == 20) {
+    if (paso != total - casillas_Vacias || contador == 20) {
         const pasos_Disponibles = probar_Opciones(posibles_Opciones(posicion))
         if (pasos_Disponibles.length == 0){
             pasos_Eliminados.pop()
@@ -114,7 +125,7 @@ let camino_Caballo = () => {
 
 function descansar() {
     let interval = setInterval(() => {
-        if (paso != total - 1){
+        if (paso != total - casillas_Vacias){
             console.log("Descansemos un poquito :3")
             contador = 0
             camino_Caballo()
@@ -129,5 +140,16 @@ function descansar() {
     
 }
 
-crear_Tablero(n)
-descansar()
+const $n = document.querySelector(".n"),
+$casillas_Vacias = document.querySelector(".casillas-vacias"),
+$pos_X = document.querySelector(".pos-x"),
+$pos_Y = document.querySelector(".pos-y"),
+$btn = document.querySelector(".start")
+
+$btn.addEventListener("click", e => {
+    n = parseInt($n.value)
+    casillas_Vacias = parseInt($casillas_Vacias.value)
+    posicion = [parseInt($pos_Y.value), parseInt($pos_X.value)]
+    crear_Tablero(n)
+    descansar()
+})
