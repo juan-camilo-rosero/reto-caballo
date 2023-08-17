@@ -59,6 +59,10 @@ html{
     align-items: center;
 }
 
+.cuadro p{
+    font-weight: 600;
+}
+
 .blanco{
     background-color: whitesmoke;
 }
