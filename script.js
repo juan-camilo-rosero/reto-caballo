@@ -91,20 +91,11 @@ const posibles_Opciones = posicion => {
 const probar_Opciones = posicion_Actual => {
     // Función que devuelve la mejor posición a la que se puede mover el caballo evaluando el segundo mejor movimiento
     let opciones_A_Probar = posibles_Opciones(posicion_Actual),
-    mejor_Camino = opciones_A_Probar[0],
-    mejor_Cantidad = 0
+    mejor_Camino = opciones_A_Probar[0]
     opciones_A_Probar.forEach(opcion => {
-        let mayor_Opcion = posibles_Opciones(opcion)[0]
-        posibles_Opciones(opcion).forEach(opcion_De_Opcion => {
-            if(posibles_Opciones(mayor_Opcion).length < posibles_Opciones(opcion_De_Opcion).length) mayor_Opcion = opcion_De_Opcion
-        });
-        if(mayor_Opcion != undefined){
-            if(mejor_Cantidad < posibles_Opciones(mayor_Opcion).length){
-                mejor_Cantidad = posibles_Opciones(mayor_Opcion).length
-                mejor_Camino = opcion
-            }
-        }
-        else console.log("Me quedé sin movimientos en ésta casilla :<");
+        console.log(opcion);
+        console.log(posibles_Opciones(opcion).length);
+        if(posibles_Opciones(opcion).length < posibles_Opciones(mejor_Camino).length) mejor_Camino = opcion
     });
     return mejor_Camino
 }
@@ -112,13 +103,14 @@ const probar_Opciones = posicion_Actual => {
 $btn.addEventListener("click", e => { 
     n = d.querySelector(".n").value // n toma el valor del input que pide cantidad de filas y columnas
     total = (n*n) - 1 // Total de pasos para solucionar el problema
-    let posicion = [0,0] // Posición inicial
+    let posicion = prompt("Ingresa la posición inicial de la siguiente forma: 00") // Posición inicial
+    posicion = [parseInt(posicion[0]),parseInt(posicion[1])]
     crear_Tablero(n)
     camino.push(posicion)
     for (let i = 0; i < total; i++) {
         let siguiente_Paso = probar_Opciones(posicion)
         camino.push(siguiente_Paso)
         posicion = siguiente_Paso
-        rellenar_Tablero(camino) // Rellenar el tablero por cada iteración (idealmente iría después del for pero como lanza error entonces muestra hasta donde llega :<)
+        rellenar_Tablero(camino)
     }
 })
