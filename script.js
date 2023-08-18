@@ -100,17 +100,26 @@ const probar_Opciones = posicion_Actual => {
     return mejor_Camino
 }
 
-$btn.addEventListener("click", e => { 
+const iniciar_Programa = posision_Inicial => {
     n = d.querySelector(".n").value // n toma el valor del input que pide cantidad de filas y columnas
     total = (n*n) - 1 // Total de pasos para solucionar el problema
-    let posicion = prompt("Ingresa la posición inicial de la siguiente forma: 00") // Posición inicial
-    posicion = [parseInt(posicion[0]),parseInt(posicion[1])]
-    crear_Tablero(n)
+    let posicion = [parseInt(posision_Inicial[0]),parseInt(posision_Inicial[1])]
     camino.push(posicion)
     for (let i = 0; i < total; i++) {
         let siguiente_Paso = probar_Opciones(posicion)
         camino.push(siguiente_Paso)
         posicion = siguiente_Paso
-        rellenar_Tablero(camino)
     }
+    rellenar_Tablero(camino)
+}
+
+$btn.addEventListener("click", e => { 
+    n = d.querySelector(".n").value // n toma el valor del input que pide cantidad de filas y columnas
+    crear_Tablero(n)
+    d.querySelector(".uwu").textContent = "Selecciona la casilla donde va a iniciar el caballo"
+    d.querySelectorAll(".cuadro").forEach($cuadro => {
+        $cuadro.addEventListener("click", e => {
+            iniciar_Programa($cuadro.getAttribute("data-pos"))
+        })
+    });
 })
