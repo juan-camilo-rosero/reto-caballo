@@ -57,10 +57,25 @@ html{
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: .3s;
 }
 
 .cuadro p{
     font-weight: 600;
+}
+
+.cuadro:hover{
+    background-color: red;
+}
+
+.uwu{
+    text-align: center;
+    width: 100vw;
+    font-size: 1.5rem;
+    color: whitesmoke;
+    font-weight: 600;
+    padding-bottom: 3rem;
 }
 
 .blanco{
